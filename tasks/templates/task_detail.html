@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{{ error }}
+
+{% block content %}
+    
+    <main class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form method="post" class="card card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p>Completed: 
+                        {% if task.datecompleted %}
+                            {{ task.datecompleted }}
+                        {% else %}
+                            Not completed
+                        {% endif %}
+                        </p>
+                    <button>Update</button>
+                </form>
+
+                <form action="{% url 'complete_task' task.id %}" method="post">
+                    {% csrf_token %}
+
+                    {% if not task.datecompleted %}
+                        <button>Complete</button>
+                    {% endif %}
+                </form>
+
+                <form action="{% url 'delete_task' task.id %}" method="post">
+                    {% csrf_token %}
+                    
+                    <button>Delete</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+{% endblock %}

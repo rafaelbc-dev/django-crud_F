@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-1">
+            <h1>Tasks</h1>
+            
+            <ul class="list-group">
+                {% for task in tasks %}
+                <a href="{% url 'task_detail' task.id %}" class="list-group-item">
+                    <h2>{{ task.title }}</h2>
+                    <p>{{ task.description }}</p>
+                    <p>Important: 
+                        {% if task.important %}
+                        <strong>Yes</strong>
+                        {% else %}
+                        No
+                        {% endif %}
+                    </p>
+                    <p>Completed: 
+                        {% if task.datecompleted %}
+                        {{ task.datecompleted }}
+                        {% else %}
+                        Not completed
+                        {% endif %}
+                    </p>
+                </a>
+                {% endfor %}
+            </ul>
+            
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
